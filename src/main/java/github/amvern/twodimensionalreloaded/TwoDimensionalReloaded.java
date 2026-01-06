@@ -7,12 +7,15 @@ import github.amvern.twodimensionalreloaded.utils.Plane;
 import github.amvern.twodimensionalreloaded.utils.PlaneAttachment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.levelgen.Heightmap;
+
 import java.util.logging.Logger;
 
 public class TwoDimensionalReloaded implements ModInitializer {
@@ -20,17 +23,16 @@ public class TwoDimensionalReloaded implements ModInitializer {
     public static final Logger LOGGER = Logger.getLogger(MOD_ID);
 
     public static void setPlayerPlane(MinecraftServer server, ServerPlayer player) {
-        double x = player.getBlockX() + 0.5;
-        double z = player.getBlockZ() + 0.5;
+        BlockPos originalPos = player.blockPosition();
+        int adjustedY = player.level().getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, originalPos.getX(), 0);
 
         final Plane plane = new Plane();
 
         server.execute(() -> {
             PlaneAttachment.set(player, plane);
-
             ((EntityPlaneGetterSetter) player).twoDimensional$setPlane(plane);
 
-            player.setPosRaw(x, player.position().y, z);
+            player.setPosRaw(originalPos.getX() + 0.5, adjustedY, 0.5);
         });
     }
 
@@ -44,12 +46,6 @@ public class TwoDimensionalReloaded implements ModInitializer {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             setPlayerPlane(server, handler.getPlayer());
         });
-
-        ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(
-                (ServerPlayer player, ServerLevel origin, ServerLevel destination) -> {
-                    setPlayerPlane(origin.getServer(), player);
-                }
-        );
 
         ServerPlayNetworking.registerGlobalReceiver(
                 InteractionLayerPayload.TYPE,

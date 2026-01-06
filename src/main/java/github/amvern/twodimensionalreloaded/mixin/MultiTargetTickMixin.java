@@ -22,7 +22,7 @@ public class MultiTargetTickMixin {
         Vec3 delta = entity.getDeltaMovement();
         entity.setDeltaMovement(delta.x, delta.y, 0.0);
 
-        entity.setPos(entity.getX(), entity.getY(), Math.floor(entity.getZ()) + 0.5);
+        if(entity.hasControllingPassenger()) entity.setPos(entity.getX(), entity.getY(), Math.floor(entity.getZ()) + 0.5);
     }
 
 }
