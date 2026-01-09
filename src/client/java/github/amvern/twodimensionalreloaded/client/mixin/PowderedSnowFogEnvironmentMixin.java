@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PowderedSnowFogEnvironmentMixin {
 
     @Inject(method = "setupFog", at = @At("HEAD"), cancellable = true)
-    public void setupFog(FogData fogData, Camera camera, ClientLevel clientLevel, float f, DeltaTracker deltaTracker, CallbackInfo ci) {
+    public void setupPowderedSnowFog(FogData fogData, Camera camera, ClientLevel clientLevel, float f, DeltaTracker deltaTracker, CallbackInfo ci) {
         fogData.environmentalStart = -8.0F;
         fogData.environmentalEnd = f * 0.5F;
         fogData.skyEnd = fogData.environmentalEnd;

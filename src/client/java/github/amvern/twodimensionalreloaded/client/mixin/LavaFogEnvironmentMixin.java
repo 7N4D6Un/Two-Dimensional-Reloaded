@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LavaFogEnvironmentMixin {
 
     @Inject(method = "setupFog", at = @At("HEAD"), cancellable = true)
-    public void setupFog(FogData fogData, Camera camera, ClientLevel clientLevel, float f, DeltaTracker deltaTracker, CallbackInfo ci) {
+    public void setupLavaFog(FogData fogData, Camera camera, ClientLevel clientLevel, float f, DeltaTracker deltaTracker, CallbackInfo ci) {
         if (camera.entity() instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE)) {
             fogData.environmentalStart = -4.0F;
             fogData.environmentalEnd = 14;

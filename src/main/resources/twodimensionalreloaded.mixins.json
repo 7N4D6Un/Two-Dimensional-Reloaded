@@ -24,7 +24,9 @@
     "ServerPlayerGameModeMixin",
     "MultiTargetTickMixin",
     "AbstractBoatMixin",
-    "AbstractHorseMixin"
+    "AbstractHorseMixin",
+    "DoorBlockMixin",
+    "TrapDoorBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

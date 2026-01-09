@@ -1,6 +1,5 @@
 package github.amvern.twodimensionalreloaded.client.mixin;
 
-import github.amvern.twodimensionalreloaded.client.TwoDimensionalReloadedClient;
 import github.amvern.twodimensionalreloaded.utils.Plane;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

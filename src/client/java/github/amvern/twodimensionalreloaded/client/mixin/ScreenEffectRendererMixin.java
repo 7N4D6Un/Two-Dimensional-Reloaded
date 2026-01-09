@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ScreenEffectRendererMixin {
 
     @Redirect(method = "renderScreenEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/CameraType;isFirstPerson()Z"))
-    private boolean twoDIsFirstPerson(CameraType instance) {
+    private boolean renderDetachedScreenEffect(CameraType instance) {
         return true;
     }
 
     @Inject(method = "renderFire", at = @At("HEAD"), cancellable = true)
-    private static void renderFire(PoseStack poseStack, MultiBufferSource multiBufferSource, TextureAtlasSprite textureAtlasSprite, CallbackInfo ci) {
+    private static void renderDetachedFire(PoseStack poseStack, MultiBufferSource multiBufferSource, TextureAtlasSprite textureAtlasSprite, CallbackInfo ci) {
         VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderTypes.fireScreenEffect(textureAtlasSprite.atlasLocation()));
         float f = textureAtlasSprite.getU0();
         float g = textureAtlasSprite.getU1();

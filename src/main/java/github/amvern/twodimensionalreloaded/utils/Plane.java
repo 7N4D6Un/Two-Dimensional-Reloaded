@@ -38,7 +38,7 @@ public class Plane {
     }
 
     public static final AttachmentType<Boolean> PLANE_ENTITY_FLAG = AttachmentRegistry.create(
-            Identifier.fromNamespaceAndPath(TwoDimensionalReloaded.MOD_ID, "isOnPlane"),
+            Identifier.fromNamespaceAndPath(TwoDimensionalReloaded.MOD_ID, "is_on_plane"),
             builder -> builder
                     .initializer(()-> false)
                     .persistent(Codec.BOOL)
