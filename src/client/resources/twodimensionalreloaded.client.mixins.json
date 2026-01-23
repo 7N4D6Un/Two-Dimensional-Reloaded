@@ -23,6 +23,7 @@
     "LavaFogEnvironmentMixin",
     "PowderedSnowFogEnvironmentMixin",
     "ScreenEffectRendererMixin",
+    "LocalPlayerAccessor",
 
     "sodium.LightDataAccessMixin",
     "sodium.AbstractBlockRenderContextAccessor",

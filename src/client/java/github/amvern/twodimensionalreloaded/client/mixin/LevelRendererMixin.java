@@ -38,22 +38,21 @@ public class LevelRendererMixin {
         CallbackInfo ci
     ) {
         BlockPos targetPos = blockOutlineRenderState.pos();
-        if (Plane.shouldCull(targetPos) || targetPos.getZ() > 1) {
+        Player player = Minecraft.getInstance().player;
+        if (player == null) return;
+
+        if (Plane.shouldCull(targetPos) || targetPos.getZ() > 1 || !player.isWithinBlockInteractionRange(targetPos, 1)) {
             ci.cancel();
             return;
         }
 
         if(TwoDimensionalReloadedClient.CONFIG.renderBlockPlacementGuide) {
-            Player player = Minecraft.getInstance().player;
-            if (player == null) return;
-
             ItemStack stack = player.getMainHandItem();
-            if (!(stack.getItem() instanceof BlockItem)) return;
+            if (!(stack.getItem() instanceof BlockItem blockItem)) return;
 
-            BlockHitResult hitResult = (BlockHitResult) player.pick(5.0D, 0.0F, false);
-            if (hitResult == null) return;
+//          BlockHitResult hitResult = (BlockHitResult) player.pick(5.0D, 0.0F, false);
+            BlockHitResult hitResult = (BlockHitResult)((LocalPlayerAccessor) player).invokeRaycastHitResult(0.0f, player);
 
-            BlockItem blockItem = (BlockItem) stack.getItem();
             Block block = blockItem.getBlock();
             Level level = player.level();
 
