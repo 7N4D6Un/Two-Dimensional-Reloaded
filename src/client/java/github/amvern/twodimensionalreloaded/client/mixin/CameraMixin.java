@@ -1,5 +1,6 @@
 package github.amvern.twodimensionalreloaded.client.mixin;
 
+import github.amvern.twodimensionalreloaded.client.TwoDimensionalReloadedClient;
 import github.amvern.twodimensionalreloaded.client.access.MouseNormalizedGetter;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -72,6 +73,11 @@ public abstract class CameraMixin {
     @Inject(method = "getFluidInCamera", at = @At("HEAD"), cancellable = true)
     private void getFluidInEye(CallbackInfoReturnable<FogType> cir) {
         if (!this.initialized) {
+            cir.setReturnValue(FogType.NONE);
+            return;
+        }
+
+        if(!TwoDimensionalReloadedClient.CONFIG.renderFogEnvironments) {
             cir.setReturnValue(FogType.NONE);
             return;
         }

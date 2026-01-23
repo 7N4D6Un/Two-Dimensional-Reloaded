@@ -18,7 +18,7 @@ public class ClientConfigScreen {
         ConfigCategory placementOutlineCategory = builder.getOrCreateCategory(Component.literal("Placement Outline"));
 
         placementOutlineCategory.addEntry(entryBuilder.startTextDescription(
-                Component.literal("Configure Block Placement Guide options. Defaults to 32-bit ARGB color. Hex colors like #RRGGBB will automatically become opaque.")
+                Component.literal("Block Placement Guide Options. Defaults to 32-bit ARGB color. Hex colors like #RRGGBB will automatically become opaque.")
         ).build());
 
         placementOutlineCategory.addEntry(entryBuilder.startBooleanToggle(Component.literal("Render Block Placement Guide"), config.renderBlockPlacementGuide)
@@ -38,6 +38,16 @@ public class ClientConfigScreen {
                 .setDefaultValue(0x80FF0000)
                 .setAlphaMode(true)
                 .setSaveConsumer(value -> config.nonPlaceableOutlineColor = fixAlpha(value))
+                .build()
+        );
+
+        placementOutlineCategory.addEntry(entryBuilder.startTextDescription(
+                Component.literal("Toggle Fog Environments for Water/Lava/Powerdered Snow.")
+        ).build());
+
+        placementOutlineCategory.addEntry(entryBuilder.startBooleanToggle(Component.literal("Render Fog"), config.renderFogEnvironments)
+                .setDefaultValue(true)
+                .setSaveConsumer(value -> config.renderFogEnvironments = value)
                 .build()
         );
 
