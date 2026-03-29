@@ -10,10 +10,10 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
@@ -24,7 +24,7 @@ import org.lwjgl.glfw.GLFW;
 public class TwoDimensionalReloadedClient implements ClientModInitializer {
     private LayerMode lastMode = LayerMode.BASE;
 
-    public static KeyMapping faceAway = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+    public static KeyMapping faceAway = KeyMappingHelper.registerKeyMapping(new KeyMapping(
 "key.twodimensionalreloaded.face_away",
         GLFW.GLFW_KEY_B,
         new KeyMapping.Category(Identifier.fromNamespaceAndPath(TwoDimensionalReloaded.MOD_ID, "utility"))
@@ -54,11 +54,11 @@ public class TwoDimensionalReloadedClient implements ClientModInitializer {
 
         });
 
-        WorldRenderEvents.END_MAIN.register(context -> {
+        LevelRenderEvents.END_MAIN.register(context -> {
             Minecraft minecraft = Minecraft.getInstance();
             Player player = minecraft.player;
             if (player != null && TwoDimensionalReloadedClient.CONFIG.renderBlockPlacementGuide && player.getMainHandItem().getItem() instanceof BlockItem blockItem) {
-                BlockPlacementGuide.renderPlacementGuide(context.matrices());
+//                BlockPlacementGuide.renderPlacementGuide(context.poseStack());
             }
         });
     }

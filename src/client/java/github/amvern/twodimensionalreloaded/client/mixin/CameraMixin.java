@@ -29,25 +29,26 @@ public abstract class CameraMixin {
     @Unique double twoDimensional$yMouseOffset = 0;
 
     @Shadow private boolean detached;
-    @Shadow protected abstract void setPosition(double x, double y, double z);
-    @Shadow protected abstract void setRotation(float yaw, float pitch);
-    @Shadow protected abstract void move(float x, float y, float z);
     @Shadow private boolean initialized;
     @Shadow private Level level;
     @Shadow private Entity entity;
 
-    @Inject(method = "setup", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;setRotation(FF)V"), cancellable = true)
-    public void setup(Level level, Entity entity, boolean bl, boolean bl2, float tickDelta, CallbackInfo ci) {
+    @Shadow protected abstract void setRotation(float yaw, float pitch);
+    @Shadow protected abstract void setPosition(double x, double y, double z);
+    @Shadow protected abstract void move(float forwards, float up, float right);
+
+    @Inject(method = "alignWithEntity", at = @At("HEAD"), cancellable = true)
+    private void twoDimensional$alignWithEntity(float partialTicks, CallbackInfo ci) {
         this.detached = true;
 
         this.setRotation(0f, 0f);
 
-        Vec3 pos = new Vec3(Mth.lerp(tickDelta, entity.xo, entity.getX()), Mth.lerp(tickDelta, entity.yo, entity.getY()) + entity.getEyeHeight(), Mth.lerp(tickDelta, entity.zo, entity.getZ()));
+        Vec3 pos = entity.getEyePosition(partialTicks);
         this.setPosition(pos.x, pos.y, pos.z);
 
         MouseNormalizedGetter mouse = (MouseNormalizedGetter) Minecraft.getInstance().mouseHandler;
 
-        float mouseOffsetScale = twoDimensional$getMouseOffsetScale(Minecraft.getInstance().player);
+        float mouseOffsetScale = twoDimensional$getMouseOffsetScale((Player) entity);
         double delta = 0.2 - (0.15 * mouseOffsetScale/40);
 
         twoDimensional$xMouseOffset = Mth.lerp(delta, twoDimensional$xMouseOffset, mouse.twoDimensional$getNormalizedX() * mouseOffsetScale);
@@ -64,10 +65,7 @@ public abstract class CameraMixin {
 
     @Unique
     private float twoDimensional$getMouseOffsetScale(Player player) {
-        if (player == null || !player.isUsingItem()) {
-            return 1;
-        }
-
+        if (player == null || !player.isUsingItem()) return 1;
         return switch (player.getUseItem().getItem().getDescriptionId()) {
             case "item.minecraft.bow" -> 10;
             case "item.minecraft.spyglass" -> 40;

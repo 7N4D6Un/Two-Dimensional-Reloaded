@@ -5,7 +5,7 @@ import github.amvern.twodimensionalreloaded.utils.Plane;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import net.caffeinemc.mods.sodium.client.render.SodiumWorldRenderer;
 import net.minecraft.client.Camera;
-import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.server.level.BlockDestructionProgress;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 public class SodiumWorldRendererMixin {
 
     @Inject(
-        method = "extractBlockEntity(Lnet/minecraft/world/level/block/entity/BlockEntity;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/Camera;FLit/unimi/dsi/fastutil/longs/Long2ObjectMap;Lnet/minecraft/client/renderer/state/LevelRenderState;)V",
+        method = "extractBlockEntity",
         at = @At("HEAD"),
         cancellable = true
     )

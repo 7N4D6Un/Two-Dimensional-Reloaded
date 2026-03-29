@@ -29,7 +29,7 @@
     "sodium.AbstractBlockRenderContextAccessor",
     "sodium.SodiumWorldRendererMixin",
     "sodium.SodiumWorldRendererAccessor",
-    "sodium.BlockOcclusionCacheMixin",
+    "sodium.AbstractBlockRenderContextMixin",
     "sodium.BlockRendererMixin",
     "sodium.DefaultFluidRendererMixin"
   ],

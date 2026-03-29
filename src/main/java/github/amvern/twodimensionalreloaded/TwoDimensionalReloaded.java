@@ -33,7 +33,7 @@ public class TwoDimensionalReloaded implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        PayloadTypeRegistry.playC2S().register(
+        PayloadTypeRegistry.serverboundPlay().register(
                 InteractionLayerPayload.TYPE,
                 InteractionLayerPayload.CODEC
         );

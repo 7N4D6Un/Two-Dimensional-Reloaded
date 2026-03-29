@@ -4,8 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import github.amvern.twodimensionalreloaded.utils.Plane;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.state.BlockOutlineRenderState;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,13 +21,9 @@ public class LevelRendererMixin {
 
     @Inject(method = "renderHitOutline", at = @At("HEAD"), cancellable = true)
     private void renderPlacementOutline(
-        PoseStack poseStack, VertexConsumer vertexConsumer,
-        double cameraX, double cameraY, double cameraZ,
-        BlockOutlineRenderState blockOutlineRenderState,
-        int color, float alpha,
-        CallbackInfo ci
+            PoseStack poseStack, VertexConsumer builder, double camX, double camY, double camZ, net.minecraft.client.renderer.state.level.BlockOutlineRenderState state, int color, float width, CallbackInfo ci
     ) {
-        BlockPos targetPos = blockOutlineRenderState.pos();
+        BlockPos targetPos = state.pos();
         Player player = minecraft.player;
         if (player == null) return;
 

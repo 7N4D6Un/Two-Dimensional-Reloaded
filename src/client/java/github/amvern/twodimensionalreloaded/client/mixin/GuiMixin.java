@@ -3,7 +3,7 @@ package github.amvern.twodimensionalreloaded.client.mixin;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.debug.DebugScreenEntries;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponents;
@@ -30,8 +30,8 @@ public abstract class GuiMixin {
     @Shadow @Final private static Identifier CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE;
     @Shadow @Final private static Identifier CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE;
 
-    @Inject(method = "renderCrosshair", at = @At("HEAD"))
-    private void render2DCrosshair(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    @Inject(method = "extractCrosshair", at = @At("HEAD"))
+    private void render2DCrosshair(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Minecraft minecraft = Minecraft.getInstance();
         MouseHandler mouse = minecraft.mouseHandler;
         Window window = minecraft.getWindow();

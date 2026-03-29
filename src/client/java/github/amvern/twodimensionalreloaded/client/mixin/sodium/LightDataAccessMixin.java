@@ -3,9 +3,9 @@ package github.amvern.twodimensionalreloaded.client.mixin.sodium;
 import github.amvern.twodimensionalreloaded.utils.Plane;
 import net.caffeinemc.mods.sodium.client.model.light.data.LightDataAccess;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.util.LightCoordsUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,9 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/***
- * Mixin to effectively omit culled blocks from lighting calculations
- */
 @Mixin(LightDataAccess.class)
 public abstract class LightDataAccessMixin {
     @Shadow protected BlockAndTintGetter level;
@@ -29,9 +26,9 @@ public abstract class LightDataAccessMixin {
 
         BlockPos p = this.pos.set(x, y, z);
 
-        int light = LevelRenderer.getLightColor(LevelRenderer.BrightnessGetter.DEFAULT, this.level, this.level.getBlockState(p), p);
-        int bl = LightTexture.block(light);
-        int sl = LightTexture.sky(light);
+        int light = LevelRenderer.getLightCoords(LevelRenderer.BrightnessGetter.DEFAULT, this.level, this.level.getBlockState(p), p);
+        int bl = LightCoordsUtil.block(light);
+        int sl = LightCoordsUtil.sky(light);
 
         int packedLightData  =
             LightDataAccess.packFC(false) |

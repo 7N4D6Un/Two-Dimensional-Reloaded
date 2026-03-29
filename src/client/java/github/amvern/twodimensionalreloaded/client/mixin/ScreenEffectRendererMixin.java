@@ -2,7 +2,6 @@ package github.amvern.twodimensionalreloaded.client.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.CameraType;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ScreenEffectRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -15,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ScreenEffectRenderer.class)
 public class ScreenEffectRendererMixin {
 
-    @Redirect(method = "renderScreenEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/CameraType;isFirstPerson()Z"))
-    private boolean renderDetachedScreenEffect(CameraType instance) {
+    @ModifyVariable(method = "renderScreenEffect", at = @At("HEAD"), index = 1)
+    private boolean modifyIsFirstPerson(boolean isFirstPerson) {
         return true;
     }
 
