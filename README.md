@@ -27,5 +27,4 @@ Optional Block Placement Guide Feature (Use Cloth Config API + ModMenu to config
 
 ## Notes
 - The current build is in very early alpha, you will experience bugs, please feel free to add to the issue tracker.
-- *Now with Iris Shaders support!*  I've done most of the development with Photon Shaders enabled, but you can bring whatever pack you'd like :)
 - **Sodium & Cloth Config API are currently required**. Making Sodium optional may be explored in the future, but maintaining both vanilla and Sodium-compatible versions increases development complexity.
