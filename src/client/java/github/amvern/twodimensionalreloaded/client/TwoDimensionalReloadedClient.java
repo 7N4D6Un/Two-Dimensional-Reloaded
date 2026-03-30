@@ -58,7 +58,7 @@ public class TwoDimensionalReloadedClient implements ClientModInitializer {
             Minecraft minecraft = Minecraft.getInstance();
             Player player = minecraft.player;
             if (player != null && TwoDimensionalReloadedClient.CONFIG.renderBlockPlacementGuide && player.getMainHandItem().getItem() instanceof BlockItem blockItem) {
-//                BlockPlacementGuide.renderPlacementGuide(context.poseStack());
+                BlockPlacementGuide.renderPlacementGuide(context.poseStack());
             }
         });
     }
