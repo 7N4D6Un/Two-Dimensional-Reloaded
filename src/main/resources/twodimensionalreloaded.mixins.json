@@ -10,6 +10,7 @@
     "ServerPlayerMixin",
     "SpikeFeatureMixin",
     "ChunkGeneratorStructureStateMixin",
+    "BlockPlaceContextMixin",
     "StrongholdPiecesStartPieceMixin",
     "StrongholdPiecesPortalRoomMixin",
     "StructurePieceInvoker",
@@ -17,6 +18,7 @@
     "NetherPortalBlockMixin",
     "PortalForcerMixin",
     "PortalForcerAccessor",
+    "MultifaceBlockMixin",
     "NetherFortressStartPieceMixin",
     "StructurePlacementMixin",
     "ServerExplosionMixin",
@@ -25,6 +27,7 @@
     "MultiTargetTickMixin",
     "AbstractBoatMixin",
     "AbstractHorseMixin",
+    "WallSignBlockMixin",
     "NonFullBlockGetShapeMixin"
   ],
   "injectors": {

@@ -27,7 +27,8 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.github_releases": "https://github.com/amvern/Two-Dimensional-Reloaded/releases"
+        "modmenu.modrinth": "https://modrinth.com/mod/two-dimensional-reloaded",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/two-dimensional-reloaded"
       }
     }
   },
