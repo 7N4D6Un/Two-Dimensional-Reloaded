@@ -13,40 +13,40 @@ public class ClientConfigScreen {
     public static Screen create(Screen parent, ClientConfig config) {
         ConfigBuilder builder = ConfigBuilder.create()
             .setParentScreen(parent)
-            .setTitle(Component.literal("Two Dimensional: Reloaded Options"));
+            .setTitle(Component.translatable("config.twodimensionalreloaded.title"));
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-        ConfigCategory generalSettings = builder.getOrCreateCategory(Component.literal("General"));
-        SubCategoryBuilder blockPlacementGuideOptions = entryBuilder.startSubCategory(Component.literal("Block Placement Guide Options"));
+        ConfigCategory generalSettings = builder.getOrCreateCategory(Component.translatable("config.twodimensionalreloaded.category.general"));
+        SubCategoryBuilder blockPlacementGuideOptions = entryBuilder.startSubCategory(Component.translatable("config.twodimensionalreloaded.subcategory.block_placement_guide"));
 
-        generalSettings.addEntry(entryBuilder.startTextDescription(Component.literal("Toggle whether camera follows mouse movement")).build());
-        generalSettings.addEntry(entryBuilder.startEnumSelector(Component.literal("Camera Mode"),
+        generalSettings.addEntry(entryBuilder.startTextDescription(Component.translatable("config.twodimensionalreloaded.description.camera_follows_mouse")).build());
+        generalSettings.addEntry(entryBuilder.startEnumSelector(Component.translatable("config.twodimensionalreloaded.option.camera_mode"),
             ClientConfig.CameraMode.class, config.cameraMode)
             .setDefaultValue(ClientConfig.CameraMode.DYNAMIC)
             .setSaveConsumer(value ->config.cameraMode = value)
-            .setEnumNameProvider(style -> Component.nullToEmpty(style.name().replace("_", " ")))
+            .setEnumNameProvider(style -> Component.translatable("config.twodimensionalreloaded.enum.camera_mode." + style.name().toLowerCase()))
             .build()
         );
 
-        blockPlacementGuideOptions.add(entryBuilder.startBooleanToggle(Component.literal("Render Block Placement Guide"), config.renderBlockPlacementGuide)
+        blockPlacementGuideOptions.add(entryBuilder.startBooleanToggle(Component.translatable("config.twodimensionalreloaded.option.render_block_placement_guide"), config.renderBlockPlacementGuide)
             .setDefaultValue(false)
             .setSaveConsumer(value -> config.renderBlockPlacementGuide = value)
-            .setTooltip(Component.literal("Render placement preview"))
+            .setTooltip(Component.translatable("config.twodimensionalreloaded.tooltip.render_placement_preview"))
             .build()
         );
 
         blockPlacementGuideOptions.add(entryBuilder.startEnumSelector(
-            Component.literal("Placement Preview Style"),
+            Component.translatable("config.twodimensionalreloaded.option.placement_preview_style"),
                 ClientConfig.RenderStyle.class,
                 config.blockRenderMode
             ).setDefaultValue(ClientConfig.RenderStyle.GHOST_BLOCK)
             .setSaveConsumer(value -> config.blockRenderMode = value)
-            .setEnumNameProvider(style -> Component.nullToEmpty(style.name().replace("_", " ")))
+            .setEnumNameProvider(style -> Component.translatable("config.twodimensionalreloaded.enum.render_style." + style.name().toLowerCase()))
             .build()
         );
 
         blockPlacementGuideOptions.add(entryBuilder.startIntSlider(
-            Component.literal("Ghost Mode Transparency Level"),
+            Component.translatable("config.twodimensionalreloaded.option.ghost_transparency"),
             (int)(config.blockAlphaValue * 10),
             0,
             10)
@@ -57,36 +57,36 @@ public class ClientConfigScreen {
         );
 
         blockPlacementGuideOptions.add(entryBuilder.startBooleanToggle(
-            Component.literal("Show Outline"),
+            Component.translatable("config.twodimensionalreloaded.option.show_outline"),
                 config.shouldRenderPlacementOutline
             ).setDefaultValue(true)
             .setSaveConsumer(value -> config.shouldRenderPlacementOutline = value)
-            .setTooltip(Component.literal("Render outline around placement preview"))
+            .setTooltip(Component.translatable("config.twodimensionalreloaded.tooltip.render_outline"))
             .build()
         );
 
         blockPlacementGuideOptions.add(entryBuilder.startEnumSelector(
-            Component.literal("Placeable Color"),
+            Component.translatable("config.twodimensionalreloaded.option.placeable_color"),
                 ClientConfig.PlacementPreviewColors.class,
                 config.placeableColorEnum
             ).setSaveConsumer(value -> config.placeableColorEnum = value)
             .setDefaultValue(ClientConfig.PlacementPreviewColors.GREEN)
-            .setEnumNameProvider(c -> Component.literal(c.name()))
+            .setEnumNameProvider(c -> Component.translatable("config.twodimensionalreloaded.enum.color." + c.name().toLowerCase()))
             .build()
         );
 
         blockPlacementGuideOptions.add(entryBuilder.startEnumSelector(
-            Component.literal("Non-Placeable Color"),
+            Component.translatable("config.twodimensionalreloaded.option.non_placeable_color"),
                 ClientConfig.PlacementPreviewColors.class,
                 config.nonPlaceableColorEnum
             ).setSaveConsumer(value -> config.nonPlaceableColorEnum = value)
             .setDefaultValue(ClientConfig.PlacementPreviewColors.RED)
-            .setEnumNameProvider(c -> Component.literal(c.name()))
+            .setEnumNameProvider(c -> Component.translatable("config.twodimensionalreloaded.enum.color." + c.name().toLowerCase()))
             .build()
         );
 
         blockPlacementGuideOptions.add(entryBuilder.startIntSlider(
-            Component.literal("Outline Width"),
+            Component.translatable("config.twodimensionalreloaded.option.outline_width"),
             (int)(config.placementOutlineWidth * 10),
             (1 * 10),
             (8 * 10))
@@ -97,7 +97,7 @@ public class ClientConfigScreen {
         );
 
         blockPlacementGuideOptions.add(entryBuilder.startIntSlider(
-            Component.literal("Outline Transparency"),
+            Component.translatable("config.twodimensionalreloaded.option.outline_transparency"),
             (int)(config.outlineAlphaValue * 10),
             0,
             10)
@@ -107,9 +107,9 @@ public class ClientConfigScreen {
             .build()
         );
 
-        generalSettings.addEntry(entryBuilder.startTextDescription(Component.literal("Toggle Fog Environments for Water/Lava/Powerdered Snow.")).build());
+        generalSettings.addEntry(entryBuilder.startTextDescription(Component.translatable("config.twodimensionalreloaded.description.fog_environments")).build());
         generalSettings.addEntry(entryBuilder.startBooleanToggle(
-            Component.literal("Render Fog"),
+            Component.translatable("config.twodimensionalreloaded.option.render_fog"),
             config.renderFogEnvironments)
             .setDefaultValue(true)
             .setSaveConsumer(value -> config.renderFogEnvironments = value)
