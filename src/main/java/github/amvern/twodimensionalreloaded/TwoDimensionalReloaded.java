@@ -33,6 +33,8 @@ public class TwoDimensionalReloaded implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        EndPortalTweak.init();
+
         PayloadTypeRegistry.serverboundPlay().register(
                 InteractionLayerPayload.TYPE,
                 InteractionLayerPayload.CODEC
